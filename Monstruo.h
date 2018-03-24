@@ -12,12 +12,15 @@ class Monstruo{
         Monstruo (string,int);
         void setNombre(string);
         void setDebilidad(int);
+        void setVida(int);
+        int getVida();
         string getNombre();
         int getDebilidad();
         virtual void atacar(Heroe*)=0;
-    private:
+    protected:
         string nombre;
         int debilidad;
+        int vida;
 };
 
 #endif

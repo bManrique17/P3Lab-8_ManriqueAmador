@@ -9,7 +9,7 @@ using namespace std;
 class Monstruo;
 
 class Item {
-    private:
+    protected:
         string nombre;
         string color;
     public:

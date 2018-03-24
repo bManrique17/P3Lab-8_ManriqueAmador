@@ -84,6 +84,102 @@ int main(){
 }
 
 void pelear(){
+    string nombre,color;
+    cout<<"     **PELEAR"<<endl;
+    cout<<"--->Item"<<endl
+        <<"(1)Arco"<<endl
+        <<"(2)Bumeran"<<endl
+        <<"(3)Bomba"<<endl
+        <<"}->Ingrese el Item: ";
+    int tipo;
+    cin>>tipo;
+    cout<<"->Ingrese el color:";
+    cin>>color;
+    cout<<"->Ingrese el nombre:";
+    cin>>nombre;
+    if(tipo==1){
+        Item* temp = new Arco(nombre,color);
+        heroeActual->setItem(temp);
+    }else{
+        if(tipo==2){
+            Item* temp = new Bumeran(nombre,color);
+            heroeActual->setItem(temp);
+        }else{
+            Item* temp = new Bomba(nombre,color);
+            heroeActual->setItem(temp);
+        }
+    }
+    int indice;
+    cout<<"    **Monstruo a escoger"<<endl;
+    for(int i=0 ; i<listaMonstruos.size() ; i++){
+        cout<<"     "<<(i+1)<<" - "<<listaMonstruos[i]->getNombre()<<endl;
+    }
+    cout<<"->Ingrese el numero a retar: ";    
+    cin>>indice;
+    indice--;
+    bool salida = false;
+    int cont = 0;
+    int op;
+    do{
+        cout<<"Peleando con "<<listaMonstruos[indice]->getNombre()<<" -Vida: "<<listaMonstruos[indice]->getVida()<<endl;        
+        cout<<""<<endl;
+        cout<<"Vida del heroe: "<<heroeActual->getVida()<<endl
+        <<"\n(1)Ataque normal"<<endl
+        <<"(2)Ataque especial"<<endl
+        <<"(3)Avandonar"<<endl
+        <<"}->Ingrese el movimiento: ";        
+        cin>>op;
+        switch(op){
+            case 1:
+            break;
+                if(cont==0){
+                    heroeActual->atacarEspecial(listaMonstruos[indice]);
+                    cont=1;
+                }else{
+                    cout<<"__Ya has usado ataque especial .("<<endl;
+                }
+            case 2:
+                heroeActual->atacar(listaMonstruos[indice]);
+            break;
+            case 3:                
+                salida=true;
+                cout<<"___Has abandonado .l."<<endl;
+            break;
+        }
+        cout<<"\n    Item"<<endl;
+        cout<<"(1)Arco"<<endl
+            <<"(2)Bumeran"<<endl
+            <<"(3)Bomba"<<endl
+            <<"]->Ingrese su nuevo Item: ";
+        int indiceItem;
+        cin>>indiceItem;
+        switch(indiceItem){
+            case 1:{
+                Item* temp = new Arco(heroeActual->getItem()->getNombre(),heroeActual->getItem()->getColor());
+                heroeActual->setItem(temp);
+            }break;
+            case 2:{
+                Item* temp = new Bumeran(heroeActual->getItem()->getNombre(),heroeActual->getItem()->getColor());
+                heroeActual->setItem(temp);
+            }break;
+            case 3:{
+                Item* temp = new Bomba(heroeActual->getItem()->getNombre(),heroeActual->getItem()->getColor());
+                heroeActual->setItem(temp);
+            }break;
+        }
+
+        if(heroeActual->getVida()<=0){
+            cout<<"Heroe ha perdido"<<endl;
+            break;
+        }else{
+            if(listaMonstruos[indice]->getVida()<=0){
+                cout<<"Heroe ha ganado"<<endl;
+                break;
+            }else{
+
+            }
+        }
+    }while(op!=3 && !salida);
 
 }
 
@@ -149,7 +245,7 @@ void borrarMonstruo(){
     int indice;
     cin>>indice;
     indice--;
-    if(indice<=0 || indice>listaMonstruos.size()-1){
+    if(indice<0 || indice>listaMonstruos.size()-1){
 		cout<<"X Invalido"<<endl;
 	}else{
 		cout<<"ELIMINADO"<<endl;

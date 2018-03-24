@@ -29,3 +29,11 @@ int Monstruo::getDebilidad(){
 void Monstruo::atacar(Heroe* heroe){
 
 }
+
+void Monstruo::setVida(int){
+    this->vida = vida;
+}
+
+int Monstruo::getVida(){
+    return vida;
+}

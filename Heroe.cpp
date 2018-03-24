@@ -6,7 +6,8 @@
 
 using namespace std;
 
-Heroe::Heroe (){}
+Heroe::Heroe (){    
+}
 
 Heroe::Heroe (string nombre , int vida , Item* item , int jefesMatados , int dinero ){
         this->nombre = nombre;

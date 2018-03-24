@@ -9,7 +9,7 @@ class Item;
 class Monstruo;
 
 class Heroe {
-    private:
+    protected:
         string nombre;
         int vida;
         Item* item;
