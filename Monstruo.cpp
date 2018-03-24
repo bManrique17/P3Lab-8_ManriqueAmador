@@ -30,7 +30,7 @@ void Monstruo::atacar(Heroe* heroe){
 
 }
 
-void Monstruo::setVida(int){
+void Monstruo::setVida(int vida){
     this->vida = vida;
 }
 

@@ -85,30 +85,17 @@ int main(){
 
 void pelear(){
     string nombre,color;
-    cout<<"     **PELEAR"<<endl;
-    cout<<"--->Item"<<endl
-        <<"(1)Arco"<<endl
-        <<"(2)Bumeran"<<endl
-        <<"(3)Bomba"<<endl
-        <<"}->Ingrese el Item: ";
+    cout<<"     **PELEAR"<<endl;    
     int tipo;
     cin>>tipo;
-    cout<<"->Ingrese el color:";
+    cout<<"->Ingrese el color del item:";
     cin>>color;
-    cout<<"->Ingrese el nombre:";
+    cout<<"->Ingrese el nombre del item:";
     cin>>nombre;
-    if(tipo==1){
-        Item* temp = new Arco(nombre,color);
-        heroeActual->setItem(temp);
-    }else{
-        if(tipo==2){
-            Item* temp = new Bumeran(nombre,color);
-            heroeActual->setItem(temp);
-        }else{
-            Item* temp = new Bomba(nombre,color);
-            heroeActual->setItem(temp);
-        }
-    }
+    
+    Item* temp = new Arco(nombre,color);
+    heroeActual->setItem(temp);
+    
     int indice;
     cout<<"    **Monstruo a escoger"<<endl;
     for(int i=0 ; i<listaMonstruos.size() ; i++){
@@ -121,31 +108,8 @@ void pelear(){
     int cont = 0;
     int op;
     do{
-        cout<<"Peleando con "<<listaMonstruos[indice]->getNombre()<<" -Vida: "<<listaMonstruos[indice]->getVida()<<endl;        
-        cout<<""<<endl;
-        cout<<"Vida del heroe: "<<heroeActual->getVida()<<endl
-        <<"\n(1)Ataque normal"<<endl
-        <<"(2)Ataque especial"<<endl
-        <<"(3)Avandonar"<<endl
-        <<"}->Ingrese el movimiento: ";        
-        cin>>op;
-        switch(op){
-            case 1:
-            break;
-                if(cont==0){
-                    heroeActual->atacarEspecial(listaMonstruos[indice]);
-                    cont=1;
-                }else{
-                    cout<<"__Ya has usado ataque especial .("<<endl;
-                }
-            case 2:
-                heroeActual->atacar(listaMonstruos[indice]);
-            break;
-            case 3:                
-                salida=true;
-                cout<<"___Has abandonado .l."<<endl;
-            break;
-        }
+        cout<<"\nPeleando con "<<listaMonstruos[indice]->getNombre()<<" -Vida: "<<listaMonstruos[indice]->getVida()<<endl;        
+
         cout<<"\n    Item"<<endl;
         cout<<"(1)Arco"<<endl
             <<"(2)Bumeran"<<endl
@@ -168,12 +132,38 @@ void pelear(){
             }break;
         }
 
+        cout<<""<<endl;
+        cout<<"Vida del heroe: "<<heroeActual->getVida()<<endl
+        <<"\n(1)Ataque especial"<<endl
+        <<"(2)Ataque normal"<<endl
+        <<"(3)Avandonar"<<endl
+        <<"}->Ingrese el movimiento: ";        
+        cin>>op;
+        switch(op){
+            case 1:            
+                if(cont==0){
+                    heroeActual->getItem()->atacar(heroeActual,listaMonstruos[indice]);
+                    heroeActual->atacarEspecial(listaMonstruos[indice]);                    
+                    cont=1;
+                }else{
+                    cout<<"__Ya has usado ataque especial .("<<endl;
+                }
+            break;
+            case 2:
+                heroeActual->getItem()->atacar(heroeActual,listaMonstruos[indice]);
+                heroeActual->atacar(listaMonstruos[indice]);
+            break;
+            case 3:                
+                salida=true;
+                cout<<"___Has abandonado .l."<<endl;
+            break;
+        }
         if(heroeActual->getVida()<=0){
-            cout<<"Heroe ha perdido"<<endl;
+            cout<<"####### Heroe ha perdido"<<endl;
             break;
         }else{
             if(listaMonstruos[indice]->getVida()<=0){
-                cout<<"Heroe ha ganado"<<endl;
+                cout<<"&&&&&&& Heroe ha ganado"<<endl;
                 break;
             }else{
 
